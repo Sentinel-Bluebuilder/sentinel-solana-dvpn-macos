@@ -1,0 +1,145 @@
+{
+  "_comment": "Every third-party program the macOS packages ship, per architecture (x64 = Intel, arm64 = Apple silicon). Pinned by version + SHA-256 (checked against each publisher's own digest file on 2026-10-22: hysteria hashes.txt, v2ray/Xray .zip.dgst); scripts/fetch-deps.mjs refuses any mismatch. Same versions as the Windows and Linux apps. WireGuard / wireguard-go / AmneziaWG / OpenVPN come from Homebrew (install-deps.sh), not bundled. Bump = new url + sha256 + a live test.",
+  "deps": [
+    {
+      "name": "hysteria2",
+      "arch": "x64",
+      "title": "Hysteria 2",
+      "version": "2.13.0",
+      "url": "https://github.com/apernet/hysteria/releases/download/app/v2.13.0/hysteria-darwin-amd64",
+      "sha256": "7a155230ae4bbffc92657f486484a48ed703bd828abf7a3e19287fea1f9ca74a",
+      "kind": "exe",
+      "dest": "resources/bin/hysteria2/hysteria2",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/apernet/hysteria/blob/master/LICENSE.md",
+      "sourceUrl": "https://github.com/apernet/hysteria/tree/app/v2.13.0"
+    },
+    {
+      "name": "hysteria2",
+      "arch": "arm64",
+      "title": "Hysteria 2",
+      "version": "2.13.0",
+      "url": "https://github.com/apernet/hysteria/releases/download/app/v2.13.0/hysteria-darwin-arm64",
+      "sha256": "c8c3589239ce4ecf335c07a3f6ec11b3ef8fbdfe9e5a5ea0ef8ba8ce50d2bb90",
+      "kind": "exe",
+      "dest": "resources/bin/hysteria2/hysteria2",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/apernet/hysteria/blob/master/LICENSE.md",
+      "sourceUrl": "https://github.com/apernet/hysteria/tree/app/v2.13.0"
+    },
+    {
+      "name": "v2ray",
+      "arch": "x64",
+      "title": "V2Ray",
+      "version": "5.53.0",
+      "url": "https://github.com/v2fly/v2ray-core/releases/download/v5.53.0/v2ray-macos-64.zip",
+      "sha256": "73e907f20355a6be16e4090c5c3693404f0c56b48a00111160cfafc874e1f317",
+      "kind": "zip",
+      "dest": "resources/bin/v2ray",
+      "files": [
+        "v2ray",
+        "geoip.dat",
+        "geosite.dat"
+      ],
+      "exec": [
+        "v2ray"
+      ],
+      "license": "MIT",
+      "licenseUrl": "https://github.com/v2fly/v2ray-core/blob/master/LICENSE",
+      "sourceUrl": "https://github.com/v2fly/v2ray-core/tree/v5.53.0"
+    },
+    {
+      "name": "v2ray",
+      "arch": "arm64",
+      "title": "V2Ray",
+      "version": "5.53.0",
+      "url": "https://github.com/v2fly/v2ray-core/releases/download/v5.53.0/v2ray-macos-arm64-v8a.zip",
+      "sha256": "75d0b4bf571b33aff8fb3eacb4a7ff16061a2d227503d75c5247852ef0958b15",
+      "kind": "zip",
+      "dest": "resources/bin/v2ray",
+      "files": [
+        "v2ray",
+        "geoip.dat",
+        "geosite.dat"
+      ],
+      "exec": [
+        "v2ray"
+      ],
+      "license": "MIT",
+      "licenseUrl": "https://github.com/v2fly/v2ray-core/blob/master/LICENSE",
+      "sourceUrl": "https://github.com/v2fly/v2ray-core/tree/v5.53.0"
+    },
+    {
+      "name": "xray",
+      "arch": "x64",
+      "title": "Xray",
+      "version": "26.3.27",
+      "url": "https://github.com/XTLS/Xray-core/releases/download/v26.3.27/Xray-macos-64.zip",
+      "sha256": "f5b0471d3459eff1b82e48af0aeac186abcc3298210070afbbbd8437a4e8b203",
+      "kind": "zip",
+      "dest": "resources/bin/xray",
+      "files": [
+        "geoip.dat",
+        "geosite.dat"
+      ],
+      "exec": [],
+      "license": "MPL-2.0",
+      "licenseUrl": "https://github.com/XTLS/Xray-core/blob/main/LICENSE",
+      "sourceUrl": "https://github.com/XTLS/Xray-core/tree/v26.3.27",
+      "note": "Only the geo data files come from this zip; the xray binary is the patched local build (local[] below)."
+    },
+    {
+      "name": "xray",
+      "arch": "arm64",
+      "title": "Xray",
+      "version": "26.3.27",
+      "url": "https://github.com/XTLS/Xray-core/releases/download/v26.3.27/Xray-macos-arm64-v8a.zip",
+      "sha256": "2e93a67e8aa1936ecefb307e120830fcbd4c643ab9b1c46a2d0838d5f8409eaf",
+      "kind": "zip",
+      "dest": "resources/bin/xray",
+      "files": [
+        "geoip.dat",
+        "geosite.dat"
+      ],
+      "exec": [],
+      "license": "MPL-2.0",
+      "licenseUrl": "https://github.com/XTLS/Xray-core/blob/main/LICENSE",
+      "sourceUrl": "https://github.com/XTLS/Xray-core/tree/v26.3.27",
+      "note": "Only the geo data files come from this zip; the xray binary is the patched local build (local[] below)."
+    }
+  ],
+  "local": [
+    {
+      "name": "dvpnd",
+      "arch": "x64",
+      "path": "resources/bin/sentinel-dvpnd",
+      "src": "sentinel-dvpnd-darwin-amd64-fork-cb33-4-final6.1",
+      "sha256": "a478d9cfd53eeecf52b143f2307445368189f25beb6fe0bb52ce1fdb37af7e64",
+      "note": "final6.1 (fork tag fork-cb33-4-final6.1 = 02b22fc on the Sentinel Solana fork): RC2 client cut."
+    },
+    {
+      "name": "dvpnd",
+      "arch": "arm64",
+      "path": "resources/bin/sentinel-dvpnd",
+      "src": "sentinel-dvpnd-darwin-arm64-fork-cb33-4-final6.1",
+      "sha256": "89976b4ad42e1543920422c7fcde97ef2323d6710e4cffdb49e8c7040ad243cc",
+      "note": "macOS Apple silicon build of final6.1 (02b22fc). Not live-tested: the rig is Intel"
+    },
+    {
+      "name": "xray",
+      "arch": "x64",
+      "path": "resources/bin/xray/xray",
+      "src": "xray-darwin-amd64-26.3.27-rc",
+      "sha256": "5177d51dc69b01d92b3007e79d0246009782c1f9b2a83a442f5547108297820a",
+      "note": "Xray 26.3.27 + docs/patches/xray-0001-darwin-find-process.patch (macOS process lookup for split by app; rc: a not-local answer from an address list older than 1 s is re-read, the first-minute split miss), built by scripts/e2e/mac/build-xray.sh with the release flags (core.build=rc)"
+    },
+    {
+      "name": "xray",
+      "arch": "arm64",
+      "path": "resources/bin/xray/xray",
+      "src": "xray-darwin-arm64-26.3.27-rc",
+      "sha256": "3cb28b569808c905ea709f2d1c43d5edd732c9f605bd34ef67dd32223eef9efb",
+      "note": "Apple silicon build of the same patched Xray. Not live-tested: the rig is Intel"
+    }
+  ]
+}

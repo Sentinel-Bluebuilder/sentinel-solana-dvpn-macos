@@ -1,0 +1,51 @@
+# macOS packages. Build with `npm run release:mac` (scripts/release-mac.mjs) ON A MAC: it fetches
+# and verifies every bundled binary first (build/deps.lock.json), then runs this. docs/INSTALLER.md.
+#   .dmg — drag to Applications. The first "Install service" step (one administrator prompt)
+#          creates the socket group, the LaunchDaemon and the /usr/local/bin/devnet-dvpn link.
+#   .zip — same app, for scripted installs (ditto -x -k).
+# Ad-hoc signed, not notarized (owner decision): first open = right-click → Open.
+appId: network.sentinel.devnet-dvpn
+productName: Devnet dVPN
+copyright: Copyright (c) 2026 Devnet dVPN contributors
+directories:
+  output: dist
+  buildResources: build
+files:
+  - out/**/*
+  - package.json
+# Contents/Resources/resources = dvpnd + protocol binaries (bin/), root helper scripts, daemon.proto
+# Contents/Resources/bin       = the devnet-dvpn CLI launcher (setup links it into /usr/local/bin)
+extraResources:
+  - from: resources
+    to: resources
+    filter:
+      - '**/*'
+  - from: build/cli
+    to: bin
+  - from: build/THIRD-PARTY-NOTICES.txt
+    to: THIRD-PARTY-NOTICES.txt
+  - from: LICENSE
+    to: LICENSE.txt
+mac:
+  # No arch here: release-mac.mjs builds one arch per pass (--x64 / --arm64) with that arch's
+  # binaries fetched; an arch list here would rebuild BOTH each pass (x64 got arm64 binaries).
+  target: [dmg, zip]
+  icon: build/icon-1024.png
+  category: public.app-category.utilities
+  # zip name (the dmg sets its own below); electron-builder 25 has no top-level zip key
+  artifactName: Devnet-dVPN-${version}-${arch}-mac.${ext}
+  minimumSystemVersion: '12.0'
+  # identity null = electron-builder signs nothing; build/mac/adhoc-sign.cjs then signs the
+  # whole bundle ad hoc (arm64 Macs refuse to run code with no signature at all).
+  identity: null
+  hardenedRuntime: false
+  gatekeeperAssess: false
+  darkModeSupport: true
+  extendInfo:
+    LSMinimumSystemVersion: '12.0'
+    NSHumanReadableCopyright: Copyright (c) 2026 Devnet dVPN contributors
+afterPack: build/mac/adhoc-sign.cjs
+dmg:
+  artifactName: Devnet-dVPN-${version}-${arch}.${ext}
+  title: Devnet dVPN ${version}
+  writeUpdateInfo: false

@@ -1,0 +1,17 @@
+#!/bin/bash
+# ─── dvpn-helper: the ONE root entry point of Devnet dVPN (macOS) ───
+# The app runs this through `osascript … with administrator privileges` (desktop), `sudo -n`
+# (SSH / test rig) or directly as root. It only ever runs the whitelisted steps below, each a
+# script next to this one, under Apple's /bin/bash (never a user-writable Homebrew bash).
+# Usage: dvpn-helper <step> --Key value ...   (no shell strings, no config text)
+set -euo pipefail
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin
+step="${1:-}"
+case "$step" in
+  setup-daemon|apply-daemon-config|remove-tunnels|install-deps|uninstall-cleanup|service-ctl) ;;
+  *) echo "dvpn-helper: unknown step '$step'" >&2; exit 64 ;;
+esac
+[ "$(id -u)" = 0 ] || { echo "dvpn-helper: must run as root" >&2; exit 77; }
+here="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
+shift
+exec /bin/bash "$here/$step.sh" "$@"

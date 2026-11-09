@@ -1,0 +1,14 @@
+#!/bin/bash
+# Devnet dVPN command line. Service setup links /usr/local/bin/devnet-dvpn here
+# (Devnet dVPN.app/Contents/Resources/bin/devnet-dvpn). Runs the bundled CLI with the app's own
+# Node runtime (same pattern as VS Code's `code`). No `readlink -f`: macOS 12 lacks it.
+src="$0"
+while [ -L "$src" ]; do
+  dir="$(cd -P "$(dirname "$src")" && pwd)"
+  src="$(readlink "$src")"
+  case "$src" in /*) ;; *) src="$dir/$src" ;; esac
+done
+CONTENTS="$(cd -P "$(dirname "$src")/../.." && pwd)"
+APP_BIN="$CONTENTS/MacOS/Devnet dVPN"
+[ -x "$APP_BIN" ] || { echo "devnet-dvpn: the app is not at $CONTENTS (moved or deleted?). Open Devnet dVPN and run Install service again." >&2; exit 127; }
+ELECTRON_RUN_AS_NODE=1 NODE_NO_WARNINGS=1 exec "$APP_BIN" "$CONTENTS/Resources/app.asar/out/cli/devnet-dvpn.cjs" "$@"

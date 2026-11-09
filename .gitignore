@@ -1,0 +1,39 @@
+node_modules/
+out/
+dist/
+dist-vm/
+dist-vm-ui/
+.env
+keys/
+*.keypair.json
+tests/devnet/state.json
+resources/bin/*.exe
+resources/bin/dvpnd
+resources/bin/sentinel-dvpnd
+# Protocol binaries (official releases, sha256-checked) — never committed
+resources/bin/v2ray/
+resources/bin/xray/
+*.tsbuildinfo
+resources/bin/hysteria2/
+build/.deps-cache/
+resources/deps/
+build/THIRD-PARTY-NOTICES.txt
+build/license.txt
+
+# matrix/sweep results land here during runs; committed deliberately once a run is valid
+docs/evidence/mac/
+
+# dvpnd/xray patches carry private-upstream source context: never in any remote
+docs/patches/
+
+# ─── publish hygiene (gitstruct) ───
+*.bak
+*.pem
+*.key
+*.secret
+*.secrets
+secrets/
+*wallet*.keystore
+id.json
+client.json
+/results/
