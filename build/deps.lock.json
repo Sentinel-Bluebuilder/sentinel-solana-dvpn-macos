@@ -113,17 +113,17 @@
       "name": "dvpnd",
       "arch": "x64",
       "path": "resources/bin/sentinel-dvpnd",
-      "src": "sentinel-dvpnd-darwin-amd64-fork-cb33-4-final6.1",
-      "sha256": "a478d9cfd53eeecf52b143f2307445368189f25beb6fe0bb52ce1fdb37af7e64",
-      "note": "final6.1 (fork tag fork-cb33-4-final6.1 = 02b22fc on the Sentinel Solana fork): RC2 client cut."
+      "src": "sentinel-dvpnd-darwin-amd64-fork-cb33-4-final6.5",
+      "sha256": "7c8978c0222479bf5d1b5276bf124da12208dd91c03d754eeb8526e58712015e",
+      "note": "final6.5 (fork tag fork-cb33-4-final6.5 = 90014b2 on the Sentinel Solana fork): final client cut (final6.1 + Q0469 2 s status deadline, Q0445 rx-stall fast floor, Q0480 idle gap is not a stall, Q0459 honest reconnecting state)."
     },
     {
       "name": "dvpnd",
       "arch": "arm64",
       "path": "resources/bin/sentinel-dvpnd",
-      "src": "sentinel-dvpnd-darwin-arm64-fork-cb33-4-final6.1",
-      "sha256": "89976b4ad42e1543920422c7fcde97ef2323d6710e4cffdb49e8c7040ad243cc",
-      "note": "macOS Apple silicon build of final6.1 (02b22fc). Not live-tested: the rig is Intel"
+      "src": "sentinel-dvpnd-darwin-arm64-fork-cb33-4-final6.5",
+      "sha256": "5f5b875211e983b774a9235aa125510342115fcc5cc896ff977abbf4e525d163",
+      "note": "macOS Apple silicon build of final6.5 (90014b2). Not live-tested: the rig is Intel"
     },
     {
       "name": "xray",
