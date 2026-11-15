@@ -1,5 +1,7 @@
 # Sentinel dVPN for macOS (Solana devnet)
 
+AI agents: the command-line guide is https://github.com/Sentinel-Bluebuilder/agentic-privacy-solana-devnet/blob/main/AGENTS.md
+
 Devnet dVPN is a pure peer-to-peer dVPN app on the Sentinel Solana devnet protocol. Pick any server and pay it directly, or subscribe to any plan. No accounts, no servers in the middle. This is the macOS build: unix socket, launchd LaunchDaemon, administrator prompt, pf kill switch, networksetup DNS and system proxy, Keychain. Every app function is also a command (`devnet-dvpn ...`). Built on [Sentinel](https://sentinel.co).
 
 ## Download
