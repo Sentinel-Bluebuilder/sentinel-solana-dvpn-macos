@@ -14,18 +14,20 @@ Latest release: <https://github.com/Sentinel-Bluebuilder/sentinel-solana-dvpn-ma
 
 All files: <https://github.com/Sentinel-Bluebuilder/sentinel-solana-dvpn-macos/releases/latest>
 
-## Status: devnet, release candidate, unsigned
+Newer pre-release: [`v0.3.0-rc2`](https://github.com/Sentinel-Bluebuilder/sentinel-solana-dvpn-macos/releases/tag/v0.3.0-rc2), files `Devnet-dVPN-0.3.0-rc.2-{arm64,x64}.dmg` (or `-mac.zip`) and `SHA256SUMS`.
+
+## Status: devnet, not notarized
 
 - Runs on the **Sentinel Solana devnet** only. Devnet tokens have no value; do not use a wallet that holds real funds.
-- This is **release candidate 2 (RC2)**, built on the Sentinel Solana fork cut `final6.1` (`02b22fc`, based on [sentinel-official/sentinel-solana](https://github.com/sentinel-official/sentinel-solana) `26de5240`).
+- The latest release, **0.1.3**, carries the Sentinel Solana fork cut `final6.5` (based on [sentinel-official/sentinel-solana](https://github.com/sentinel-official/sentinel-solana)). The pre-release **0.3.0-rc2** carries the cut `final6.16`.
 - Builds are **not code-signed by a publisher** (see the platform note below), so the OS will warn on first run. Verify the download against `SHA256SUMS` first.
 
 ## Verify a download
 
-Download `SHA256SUMS` and the file(s) from the [release](https://github.com/Sentinel-Bluebuilder/sentinel-solana-dvpn-macos/releases/latest) into one folder, then:
+Download `SHA256SUMS` and the file(s) from the [release](https://github.com/Sentinel-Bluebuilder/sentinel-solana-dvpn-macos/releases/latest) into one folder, then check each file you downloaded (macOS ships `shasum`):
 
 ```bash
-sha256sum -c SHA256SUMS --ignore-missing
+grep ' Devnet-dVPN-0.1.3-x64.dmg$' SHA256SUMS | shasum -a 256 -c -
 ```
 
 ## Test results and known issues
@@ -39,11 +41,23 @@ Test results, the bug catalogue and open issues for every Sentinel dVPN client l
 
 [Sentinel dVPN License](LICENSE). Third-party components keep their own licenses (see `THIRD-PARTY-NOTICES`).
 
-macOS note: the app is ad-hoc signed, **not notarized**. The first time, right-click the app and choose **Open**.
+macOS note: 0.1.3 is ad-hoc signed and 0.3.0-rc2 is signed with one stable self-signed identity; neither is **notarized**. The first time you open the app, right-click it and choose **Open**.
 
 ## Install
 
 Open the `.dmg` and drag the app to Applications. Its first run sets up the device and installs the VPN service (one administrator prompt); afterwards `devnet-dvpn help` works in any terminal. To remove it: Diagnostics > Remove the VPN service (or `devnet-dvpn daemon uninstall --yes`), then drag the app to the Trash. See [installer notes](docs/INSTALLER.md).
+
+From a terminal, with no clicks (for scripts and AI agents; needs an administrator account, and with passwordless `sudo` nothing asks at all):
+
+```bash
+M=$(hdiutil attach -nobrowse -readonly Devnet-dVPN-<version>-x64.dmg | tail -1 | cut -f3-)
+sudo -n ditto "$M/Devnet dVPN.app" "/Applications/Devnet dVPN.app"; hdiutil detach -quiet "$M"
+CLI="/Applications/Devnet dVPN.app/Contents/Resources/bin/devnet-dvpn"   # until the service is installed
+"$CLI" wallet create --keyfile ~/dvpn-key.json --yes; export DVPN_KEYFILE=~/dvpn-key.json
+# fund the address from "$CLI" wallet show with devnet SOL + tDVPN, then:
+"$CLI" daemon init && "$CLI" device setup --yes && "$CLI" daemon install --yes
+devnet-dvpn status                                                      # on PATH from here on
+```
 
 ## Build from source
 
